@@ -13,6 +13,7 @@ def seconds_difference(time_1, time_2):
     >>> seconds_difference(1800.0, 1800.0)
     0.0
     """
+    return time_2 - time_1
     
 
 
@@ -31,6 +32,9 @@ def hours_difference(time_1, time_2):
     >>> hours_difference(1800.0, 1800.0)
     0.0
     """
+    # there are 60 seconds in 1 minute
+    # there are 60 minutes in 1 hour
+    return seconds_difference(time_1, time_2)/(60*60)
 
 
 
@@ -49,6 +53,7 @@ def to_float_hours(hours, minutes, seconds):
     >>> to_float_hours(1, 0, 36)
     1.01
     """
+    return hours + minutes/60 + seconds/(60*60)
 
 
 
@@ -77,17 +82,61 @@ def to_24_hour_clock(hours):
 
 
 ### Write your get_hours function definition here:
+def get_hours(seconds_from_midnight):
+    """ (int) -> int
+
+    seconds_from_midnight is the number of seconds since midnight. Return
+    the hour part of the current clock time in range 0 to 23, inclusive 
+
+    >>> get_hours(3500)
+    0
+    >>> get_hours(3600)
+    1
+    >>> get_hours(3700)
+    1
+    >>> get_hours(3600*25)
+    1
+    """
+    return to_24_hour_clock(seconds_from_midnight//3600)
 
 
 
 
 ### Write your get_minutes function definition here:
+def get_minutes(seconds_from_midnight):
+    """ (int) -> int
 
+    seconds_from_midnight is the number of seconds since midnight. Return
+    the minutes part of the current clock time in range 0 to 59, inclusive
 
-
+    >>> get_minutes(59)
+    0
+    >>> get_minutes(60)
+    1
+    >>> get_minutes(62)
+    1
+    >>> get_minutes(62*3)
+    3
+    """
+    return (seconds_from_midnight//60)%60
 
 ### Write your get_seconds function definition here:
+def get_seconds(seconds_from_midnight):
+    """ (int) -> int
 
+    seconds_from_midnight is the number of seconds since midnight. Return
+    the seconds part of the current clock time in range 0 to 59, inclusive
+
+    >>> get_seconds(59)
+    59
+    >>> get_seconds(60)
+    0
+    >>> get_seconds(62)
+    2
+    >>> get_seconds(62*3)
+    6
+    """
+    return seconds_from_midnight%60
 
 
 
@@ -110,6 +159,7 @@ def time_to_utc(utc_offset, time):
     >>> time_to_utc(-1, 23.0)
     0.0
     """
+    return to_24_hour_clock(time - utc_offset)
 
 
 
@@ -135,5 +185,6 @@ def time_from_utc(utc_offset, time):
     >>> time_from_utc(+1, 23.0)
     0.0
     """
+    return to_24_hour_clock(time + utc_offset)
 
 
