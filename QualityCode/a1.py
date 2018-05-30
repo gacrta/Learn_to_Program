@@ -8,7 +8,14 @@ def num_buses(n):
 
     >>> num_buses(75)
     2
+    >>> num_buses(49)
+    1
+    >>> num_buses(50)
+    1
     """
+    if n % 50 != 0:
+        return n // 50 + 1
+    return n // 50
 
 
 def stock_price_summary(price_changes):
@@ -20,7 +27,21 @@ def stock_price_summary(price_changes):
 
     >>> stock_price_summary([0.01, 0.03, -0.02, -0.14, 0, 0, 0.10, -0.01])
     (0.14, -0.17)
+    >>> stock_price_summary([])
+    (0.0, 0.0)
+    >>> stock_price_summary([0.01])
+    (0.01, 0.0)
+    >>> stock_price_summary([-0.01, 0.10, -0.02])
+    (0.1, -0.03)
     """
+    gains = 0.0
+    losses = 0.0
+    for price in price_changes:
+        if price >= 0:
+            gains += price
+        else:
+            losses += price
+    return gains, losses
 
 
 def swap_k(L, k):
@@ -34,7 +55,30 @@ def swap_k(L, k):
     >>> swap_k(nums, 2)
     >>> nums
     [5, 6, 3, 4, 1, 2]
+    >>> nums = [1, 2, 3, 4, 5, 6, 7]
+    >>> swap_k(nums, 3)
+    >>> nums
+    [5, 6, 7, 4, 1, 2, 3]
+    >>> nums = [1, 2, 3, 4, 5, 6]
+    >>> swap_k(nums, 3)
+    >>> nums
+    [4, 5, 6, 1, 2, 3]
+    >>> nums = []
+    >>> swap_k(nums, 0)
+    >>> nums
+    []
+    >>> nums = [1,2]
+    >>> swap_k(nums, 0)
+    >>> nums
+    [1, 2]
+    >>> nums = [1,2]
+    >>> swap_k(nums, 1)
+    >>> nums
+    [2, 1]
     """
+    right_slice = L[len(L)-k:]
+    L[len(L)-k:] = L[:k]
+    L[:k] = right_slice
 
 
 if __name__ == '__main__':
