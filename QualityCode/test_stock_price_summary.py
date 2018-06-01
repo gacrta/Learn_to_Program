@@ -48,8 +48,8 @@ class TestStockPriceSummary(unittest.TestCase):
         Tests the case where len(L) < 1 and has positive values. (sum_value, 0.0) is expected
         """
 
-        got = a1.stock_price_summary([0.01, 0.2, 0.14])
-        expected = (0.35, 0.0)
+        got = a1.stock_price_summary([0.01, 0.03, 0, 0, 0.10])
+        expected = (0.14, 0.0)
         self.assertEqual(got, expected)
 
     def test_stock_price_summary_6(self):
@@ -57,8 +57,8 @@ class TestStockPriceSummary(unittest.TestCase):
         Tests the case where len(L) < 1 and has negative values. (0.0, sum_value) is expected
         """
 
-        got = a1.stock_price_summary([-0.01, -0.2, -0.14])
-        expected = (0.0, -0.35)
+        got = a1.stock_price_summary([-0.02, -0.14, -0.01])
+        expected = (0.0, -0.17)
         self.assertEqual(got, expected)
 
 
